@@ -52,10 +52,10 @@ pipeline {
                     git config user.email "zivledziv@gmail.com"
                     git config user.name "zivledziv"
                     BUILD_NUMBER=${BUILD_NUMBER}
-                    git clone https://github.com/zivledziv/jenkins-argo-manifests.git
                     # for debugging:
                     tail -f /dev/null
-                    cd ./${GIT_REPO_NAME}
+                    git clone https://github.com/zivledziv/jenkins-argo-manifests.git
+                    cd ${GIT_REPO_NAME}
                     sed "s/{{TAG}}/${BUILD_NUMBER}/g" deployment-template.yaml > deployment.yml
                     git add deployment.yml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
