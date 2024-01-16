@@ -53,21 +53,16 @@ pipeline {
                     git config user.name "zivledziv"
                     BUILD_NUMBER=${BUILD_NUMBER}
                     
-                    
-                    // Check if the directory exists
-                    if (fileExists(${GIT_REPO_NAME})) {
-                        // Directory exists, perform git pull to update
-                        dir(${GIT_REPO_NAME}) {
-                            sh 'git pull origin main'
-                        }
-                    } else {
-                        // Directory doesn't exist, perform git clone
-                        sh "git clone https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME}"
-                    }
+                    if [ -d ${GIT_REPO_NAME} ]; then
+                        cd ${GIT_REPO_NAME}
+                        git pull origin main
+                    else
+                        git clone https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME}
+                    fi
 
                     # for debugging:
                     tail -f /dev/null
-                    
+
                     cd ${GIT_REPO_NAME}
                     sed "s/{{TAG}}/${BUILD_NUMBER}/g" deployment-template.yaml > deployment.yml
                     git add deployment.yml
