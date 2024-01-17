@@ -61,7 +61,7 @@ pipeline {
                     fi
 
                     # for debugging:
-                    tail -f /dev/null
+                    # tail -f /dev/null
 
                     cd ${GIT_REPO_NAME}
                     sed "s/{{TAG}}/${BUILD_NUMBER}/g" deployment-template.yaml > deployment.yml
