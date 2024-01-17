@@ -49,8 +49,8 @@ pipeline {
         steps {
             withCredentials([string(credentialsId: 'github-zivledziv', variable: 'GITHUB_TOKEN')]) {
                 sh '''
-                    git config user.email "zivledziv@gmail.com"
-                    git config user.name "zivledziv"
+                    git config --global user.email "zivledziv@gmail.com"
+                    git config --global user.name "zivledziv"
                     BUILD_NUMBER=${BUILD_NUMBER}
                     
                     if [ -d ${GIT_REPO_NAME} ]; then
@@ -64,7 +64,7 @@ pipeline {
                     # for debugging:
                     # tail -f /dev/null
 
-                    cd /var/lib/jenkins/workspace/jenkinsDemo/jenkins-argo-manifests
+                    cd /var/lib/jenkins/workspace/jenkinsDemo/${GIT_REPO_NAME}
                     pwd
 
                     sed "s/{{TAG}}/${BUILD_NUMBER}/g" deployment-template.yaml > deployment.yml
