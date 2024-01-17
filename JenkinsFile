@@ -60,9 +60,16 @@ pipeline {
                         git clone https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME}
                     fi
 
+                    pwd
                     # for debugging:
                     tail -f /dev/null
 
+                    cd /var/lib/jenkins/workspace/jenkinsDemo/jenkins-argo-manifests
+                    pwd
+
+                    cd jenkins-argo-manifests
+                    pwd
+                    
                     cd ${GIT_REPO_NAME}
                     sed "s/{{TAG}}/${BUILD_NUMBER}/g" deployment-template.yaml > deployment.yml
                     git add deployment.yml
