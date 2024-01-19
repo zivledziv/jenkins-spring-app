@@ -70,4 +70,18 @@ pipeline {
         }
     }
   }
+  post {
+    always {
+      script {
+        currentBuild.result = currentBuild.result ?: 'SUCCESS'
+        slackSend(
+          color: currentBuild.result == 'SUCCESS' ? 'good' : 'danger',
+          message: "Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) has completed. Result: ${currentBuild.result}",
+          channel: '#cicd-jenkins',
+          teamDomain: 'DevOpsTeam',
+          tokenCredentialId: 'slack-token'
+        )
+      }
+    }
+  }
 }
