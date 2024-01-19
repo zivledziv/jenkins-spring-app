@@ -19,7 +19,7 @@ pipeline {
               color: currentBuild.result == 'SUCCESS' ? 'good' : 'danger',
               message: "Maven build for Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) has completed. Result: ${currentBuild.result}",
               channel: '#cicd-jenkins',
-              teamDomain: 'DevOpsTeam',
+              teamDomain: 'devopsteam-afo9467',
               tokenCredentialId: 'slack-token'
             )
         }
@@ -86,7 +86,7 @@ pipeline {
           color: currentBuild.result == 'SUCCESS' ? 'good' : 'danger',
           message: "Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) has completed. Result: ${currentBuild.result}",
           channel: '#cicd-jenkins',
-          teamDomain: 'DevOpsTeam',
+          teamDomain: 'devopsteam-afo9467',
           tokenCredentialId: 'slack-token'
         )
       }
