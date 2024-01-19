@@ -15,8 +15,7 @@ pipeline {
       steps {
         sh 'mvn clean package'
       }
-    }
-    post {
+      post {
         success {
             slackSend(
                 color: 'good',
@@ -35,7 +34,9 @@ pipeline {
                 tokenCredentialId: 'slack-token'
             )
         }
+      }
     }
+    
     stage('Static Code Analysis') {
       environment {
         SONAR_URL = "http://35.211.10.188:9000"
