@@ -14,16 +14,27 @@ pipeline {
     stage('Build and Test') {
       steps {
         sh 'mvn clean package'
-        script {
-          slackSend(
-              color: currentBuild.result == 'SUCCESS' ? 'good' : 'danger',
-              message: "Maven build for Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) has completed. Result: ${currentBuild.result}",
-              channel: '#cicd-jenkins',
-              teamDomain: 'devopsteam-afo9467',
-              tokenCredentialId: 'slack-token'
+      }
+    }
+    post {
+        success {
+            slackSend(
+                color: 'good',
+                message: "Maven build completed successfully",
+                channel: '#cicd-jenkins',
+                teamDomain: 'devopsteam-afo9467',
+                tokenCredentialId: 'slack-token'
             )
         }
-      }
+        failure {
+            slackSend(
+                color: 'danger',
+                message: "Maven build failed",
+                channel: '#cicd-jenkins',
+                teamDomain: 'devopsteam-afo9467',
+                tokenCredentialId: 'slack-token'
+            )
+        }
     }
     stage('Static Code Analysis') {
       environment {
