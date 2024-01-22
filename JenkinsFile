@@ -30,7 +30,7 @@ pipeline {
                 message: "Maven build completed successfully",
                 channel: '${SLACK_CHANNEL}',
                 teamDomain: '${SLACK_TEAM_DOMAIN}',
-                tokenCredentialId: '${SLACK_TOKEN_CREDENTIAL_ID}'
+                tokenCredentialId: 'slack-token'
             )
         }
         failure {
