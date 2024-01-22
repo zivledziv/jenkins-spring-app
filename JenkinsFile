@@ -28,18 +28,18 @@ pipeline {
             slackSend(
                 color: 'good',
                 message: "Maven build completed successfully",
-                channel: '#cicd-jenkins',
-                teamDomain: 'devopsteam-afo9467',
-                tokenCredentialId: 'slack-token'
+                channel: "${SLACK_CHANNEL}",
+                teamDomain: "${SLACK_TEAM_DOMAIN}",
+                tokenCredentialId: "${SLACK_TOKEN_CREDENTIAL_ID}"
             )
         }
         failure {
             slackSend(
                 color: 'danger',
                 message: "Maven build failed",
-                channel: '${SLACK_CHANNEL}',
-                teamDomain: '${SLACK_TEAM_DOMAIN}',
-                tokenCredentialId: '${SLACK_TOKEN_CREDENTIAL_ID}'
+                channel: "${SLACK_CHANNEL}",
+                teamDomain: "${SLACK_TEAM_DOMAIN}",
+                tokenCredentialId: "${SLACK_TOKEN_CREDENTIAL_ID}"
             )
         }
       }
@@ -108,9 +108,9 @@ pipeline {
         slackSend(
           color: currentBuild.result == 'SUCCESS' ? 'good' : 'danger',
           message: "Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) has completed. Result: ${currentBuild.result}",
-          channel: '${SLACK_CHANNEL}',
-          teamDomain: '${SLACK_TEAM_DOMAIN}',
-          tokenCredentialId: '${SLACK_TOKEN_CREDENTIAL_ID}'
+          channel: "${SLACK_CHANNEL}",
+          teamDomain: "${SLACK_TEAM_DOMAIN}",
+          tokenCredentialId: "${SLACK_TOKEN_CREDENTIAL_ID}"
         )
       }
     }
