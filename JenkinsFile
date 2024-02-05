@@ -24,15 +24,6 @@ pipeline {
         sh 'mvn clean package'
       }
       post {
-        success {
-            slackSend(
-                color: 'good',
-                message: "Maven build completed successfully",
-                channel: "${SLACK_CHANNEL}",
-                teamDomain: "${SLACK_TEAM_DOMAIN}",
-                tokenCredentialId: "${SLACK_TOKEN_CREDENTIAL_ID}"
-            )
-        }
         failure {
             slackSend(
                 color: 'danger',
